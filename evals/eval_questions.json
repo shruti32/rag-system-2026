@@ -1,0 +1,53 @@
+{
+  "description": "Hand-written evaluation set for the RAG system. Each item has a question and a ground-truth answer derived from the ingested papers (RAG/Lewis 2020, RAGAS/Es 2023, SHAP/Lundberg 2017). Review and expand these; hand-written questions catch failure modes that synthetic ones miss.",
+  "questions": [
+    {
+      "question": "What is retrieval-augmented generation?",
+      "ground_truth": "Retrieval-augmented generation (RAG) combines a pre-trained parametric sequence-to-sequence model with a non-parametric memory — a dense vector index of documents (e.g. Wikipedia) accessed by a neural retriever. The retriever fetches relevant passages for an input, and the generator conditions on both the input and the retrieved passages to produce output, improving performance on knowledge-intensive tasks and reducing hallucination."
+    },
+    {
+      "question": "What are the two RAG formulations proposed in the Lewis et al. paper?",
+      "ground_truth": "RAG-Sequence, which uses the same retrieved document to generate the entire output sequence, and RAG-Token, which can use a different retrieved document for each token of the output."
+    },
+    {
+      "question": "What retriever does RAG use?",
+      "ground_truth": "RAG uses the Dense Passage Retriever (DPR), which follows a bi-encoder architecture with a document encoder and a query encoder based on BERT, retrieving documents via maximum inner product search."
+    },
+    {
+      "question": "Why does RAG reduce hallucination compared to purely parametric models?",
+      "ground_truth": "Because RAG grounds its generations in real retrieved factual knowledge (such as Wikipedia passages) rather than relying solely on knowledge stored in model parameters, making outputs more factual and specific and offering more control and interpretability."
+    },
+    {
+      "question": "What is the retrieval collapse problem mentioned in the RAG paper?",
+      "ground_truth": "Retrieval collapse is when the retrieval component learns to retrieve the same documents regardless of the input, causing the generator to learn to ignore the documents; the RAG model then performs equivalently to a purely parametric baseline like BART."
+    },
+    {
+      "question": "What is RAGAS?",
+      "ground_truth": "RAGAS (Retrieval Augmented Generation Assessment) is a framework for reference-free automated evaluation of retrieval-augmented generation systems, providing metrics that estimate the quality of retrieval and generation without requiring human-annotated reference answers, with integrations for LlamaIndex and LangChain."
+    },
+    {
+      "question": "What is the faithfulness metric in RAGAS?",
+      "ground_truth": "Faithfulness measures whether the claims made in the generated answer can be inferred from the retrieved context. It is computed by extracting the statements in the answer and checking what fraction of them are supported by the given context, penalizing hallucinated claims."
+    },
+    {
+      "question": "What is answer relevancy in RAGAS?",
+      "ground_truth": "Answer relevancy measures how directly and appropriately the generated answer addresses the actual question, penalizing answers that are incomplete or contain redundant or off-topic information."
+    },
+    {
+      "question": "How does RAGAS evaluate context relevance?",
+      "ground_truth": "RAGAS assesses whether the retrieved context contains only the information needed to answer the question, penalizing retrieved passages that include redundant or irrelevant sentences, thereby measuring the precision of the retrieval step."
+    },
+    {
+      "question": "What are SHAP values?",
+      "ground_truth": "SHAP (SHapley Additive exPlanations) values are a unified measure of feature importance defined as the Shapley values of a conditional expectation function of the original model. They attribute to each feature its contribution to a prediction, and are the unique additive feature attribution method satisfying local accuracy, missingness, and consistency."
+    },
+    {
+      "question": "How are SHAP values computed when features are not independent?",
+      "ground_truth": "When features are not independent, the order in which features are added to the conditional expectation matters, and the SHAP values are obtained by averaging the contributions across all possible orderings of the features."
+    },
+    {
+      "question": "What is the model-agnostic approximation for SHAP values?",
+      "ground_truth": "The model-agnostic approximation (Kernel SHAP) assumes feature independence and model linearity to approximate the conditional expectations, enabling regression-based estimation of SHAP values by jointly estimating them with a weighted linear regression."
+    }
+  ]
+}
