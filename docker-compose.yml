@@ -1,0 +1,29 @@
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "127.0.0.1:6379:6379"
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: rag_metrics
+      POSTGRES_USER: rag
+      POSTGRES_PASSWORD: rag123
+    ports:
+      - "127.0.0.1:5433:5432"   # host 5433 to avoid clashing with the churn project's 5432
+    volumes:
+      - rag_pg_data:/var/lib/postgresql/data
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "127.0.0.1:3001:3000"   # host 3001 to avoid clashing with the churn project's 3000
+    volumes:
+      - rag_grafana_data:/var/lib/grafana
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+
+volumes:
+  rag_pg_data:
+  rag_grafana_data:
