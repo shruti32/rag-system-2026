@@ -133,4 +133,4 @@ rag-system-2026/
 │   └── qdrant_db/       # persisted vector store (git-ignored)
 ├── docker-compose.yml   # Redis + Postgres + Grafana
 └── pyproject.toml
-```
+```git add .
